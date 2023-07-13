@@ -22,7 +22,7 @@ export const MeetingDetailPage = () => {
     const rsvpClickHandler = () => {
         if (rsvpData.name.length > 0) {
             if (rsvpData.email.length > 0) {
-                setData(data.map((meeting) => meeting.id === meetingDetail ? {...meeting, isRSVP: true} : meeting ))
+                setData(data.map((meeting) => meeting.id === meetingDetail ? { ...meeting, isRSVP: true } : meeting))
             } else {
                 alert(`Email is necessary`)
             }
@@ -87,11 +87,11 @@ export const MeetingDetailPage = () => {
                         </div>
                     ))}
                 </div>
-                {meeting.isRSVP 
-                ?
-                <button className="bg-[#f64060]/50 p-2 w-48 text-white rounded-lg block m-auto mt-6 cursor-not-allowed active:scale-100" disabled>Already RSVPed</button>
-                :
-                <button className="bg-[#f64060] p-2 w-32 text-white rounded-lg block m-auto mt-6" onClick={() => setIsModalOpen(true)}>RSVP</button>
+                {meeting.isRSVP
+                    ?
+                    <button className="bg-[#f64060]/50 p-2 w-48 text-white rounded-lg block m-auto mt-6 cursor-not-allowed active:scale-100" disabled>Already RSVPed</button>
+                    :
+                    <button className="bg-[#f64060] p-2 w-32 text-white rounded-lg block m-auto mt-6" onClick={() => setIsModalOpen(true)}>RSVP</button>
                 }
             </div>
             {isModalOpen &&
@@ -111,10 +111,12 @@ export const MeetingDetailPage = () => {
                             <p className="font-medium">Email:</p>
                             <input type="email" id="email" className="border-2 p-2 border-red-200 rounded-xl w-full outline-none" onChange={(event) => setRsvpData({ ...rsvpData, email: event.target.value })} />
                         </label>
-                        <p className="text-lg">
-                            * You have to make the payment at the venue.
-                        </p>
-                        <button className="w-full bg-[#f64060] rounded p-2 text-white font-semibold text-xl" onClick={() => rsvpClickHandler()}>RSVP</button>
+                        {meeting.price !== 'Free' &&
+                            <p className="text-lg">
+                                * You have to make the payment at the venue.
+                            </p>
+                        }
+                        <button className="w-full bg-[#f64060] rounded p-2 text-white font-semibold text-xl my-2" onClick={() => rsvpClickHandler()}>RSVP</button>
                     </div>
                 </div>}
         </div>
