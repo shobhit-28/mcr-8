@@ -1,24 +1,42 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { DataContext } from "../../context/dataContext"
 import { useNavigate } from "react-router-dom"
 
 export const HomePage = () => {
   const {data} = useContext(DataContext)
+  
+  const [filteredData, setFilteredData] = useState(data)
 
   const navigate = useNavigate()
 
+  const filter = (val) => {
+    switch (val) {
+      case 'online':
+        setFilteredData(data.filter(({eventType}) => eventType === 'Online' ))
+        break;
+      case 'offline':
+        setFilteredData(data.filter(({eventType}) => eventType === 'Offline' ))
+        break;
+      case 'both':
+        setFilteredData(data)
+        break;
+    
+      default:
+        break;
+    }
+  }
   return (
     <div className="pt-16">
       <div className="top flex items-center justify-between px-4 py-2">
         <p className="text-3xl font-medium">Meetup Events</p>
-        <select name="" id="" className="">
+        <select name="" id="" className="border-2 p-2 rounded" onChange={(event) => filter(event.target.value) }>
           <option value="online" className="">Online</option>
           <option value="offline" className="">Offline</option>
           <option value="both" className="">Both</option>
         </select>
       </div>
       <div className="flex flex-wrap">
-        {data.map((meeting) => (
+        {filteredData.map((meeting) => (
           <div className="w-72 m-2 relative box-shadow cursor-pointer flex flex-col justify-between" key={meeting.id} onClick={() => navigate(`/meeting/${meeting.id}`)}>
             <div className="">
               <img src={meeting.eventThumbnail} alt="" />
