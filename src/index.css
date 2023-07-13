@@ -12,7 +12,7 @@
 
 ::selection {
     color: white;
-    background: #212A3E;
+    background: rgba(246, 63, 95, 1);
 }
 
 body {
@@ -47,4 +47,8 @@ button:active {
 html {
     font-size: 100%;
     scroll-behavior: smooth;
+}
+
+.box-shadow {
+    box-shadow: rgba(0, 0, 0, 0.2) 0 0 8px;
 }
