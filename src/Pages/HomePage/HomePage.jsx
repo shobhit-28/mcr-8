@@ -1,8 +1,11 @@
 import { useContext } from "react"
 import { DataContext } from "../../context/dataContext"
+import { useNavigate } from "react-router-dom"
 
 export const HomePage = () => {
   const {data} = useContext(DataContext)
+
+  const navigate = useNavigate()
 
   return (
     <div className="pt-16">
@@ -16,7 +19,7 @@ export const HomePage = () => {
       </div>
       <div className="flex flex-wrap">
         {data.map((meeting) => (
-          <div className="w-72 m-2 relative box-shadow cursor-pointer flex flex-col justify-between" key={meeting.id}>
+          <div className="w-72 m-2 relative box-shadow cursor-pointer flex flex-col justify-between" key={meeting.id} onClick={() => navigate(`/meeting/${meeting.id}`)}>
             <div className="">
               <img src={meeting.eventThumbnail} alt="" />
             </div>
